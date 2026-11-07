@@ -60,8 +60,11 @@ jobs:
       - name: Install cargo-packager
         run: cargo install cargo-packager --locked
 
+      - name: Build
+        run: cargo build --release --target ${{ matrix.target }}
+
       - name: Package
-        run: cargo packager --release --formats ${{ matrix.formats }}
+        run: cargo packager --release --formats ${{ matrix.formats }} --target ${{ matrix.target }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

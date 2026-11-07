@@ -28,5 +28,4 @@ identifier = "com.itfenbao.static-server"
 authors = ["Static Server"]
 category = "DeveloperTool"
 out-dir = "dist"
-before-packaging-command = "cargo build --release"
 icons = ["icons/icon.png", "icons/icon.icns", "icons/icon.ico"]

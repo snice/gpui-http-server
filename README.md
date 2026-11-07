@@ -29,9 +29,11 @@ cargo run --release  # 发布模式运行
 
 ```bash
 cargo install cargo-packager --locked
-cargo packager --release --formats dmg        # macOS
-cargo packager --release --formats nsis       # Windows
-cargo packager --release --formats deb,appimage  # Linux
+# 先编译，再用同一个 target 打包（以 macOS Apple Silicon 为例）
+cargo build --release --target aarch64-apple-darwin
+cargo packager --release --formats dmg --target aarch64-apple-darwin
+# Windows：--formats nsis --target x86_64-pc-windows-msvc
+# Linux：  --formats deb,appimage --target x86_64-unknown-linux-gnu
 ```
 
 产物输出到 `dist/`。推送 `v*` 标签会触发 GitHub Actions（`.github/workflows/release.yml`），

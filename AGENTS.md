@@ -14,7 +14,8 @@ cargo run                 # 运行
 cargo build --release
 cargo clippy -- --deny warnings
 cargo fmt --check
-cargo packager --release --formats dmg   # 需 cargo install cargo-packager --locked
+cargo build --release --target aarch64-apple-darwin
+cargo packager --release --formats dmg --target aarch64-apple-darwin   # 需 cargo install cargo-packager --locked；build 与 packager 的 --target 必须一致
 ```
 
 需要较新的稳定版 Rust（gpui 使用了较新的标准库特性；旧版会在 `gpui-pre-macos` 编译失败）。
