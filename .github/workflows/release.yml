@@ -61,7 +61,7 @@ jobs:
         run: cargo install cargo-packager --locked
 
       - name: Package
-        run: cargo packager --release --formats ${{ matrix.formats }} --target ${{ matrix.target }}
+        run: cargo packager --release --formats ${{ matrix.formats }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
