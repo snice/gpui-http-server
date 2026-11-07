@@ -24,7 +24,7 @@ strip = true
 
 [package.metadata.packager]
 product-name = "Static Server"
-identifier = "com.example.static-server"
+identifier = "com.itfenbao.static-server"
 authors = ["Static Server"]
 category = "DeveloperTool"
 out-dir = "dist"

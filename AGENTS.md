@@ -39,4 +39,4 @@ cargo packager --release --formats dmg   # 需 cargo install cargo-packager --lo
 ## 已知限制
 
 - Windows / Linux 打包流程尚未在真实 CI 上验证；Linux 依赖库列表可能需要随 gpui 调整。
-- 安装包未签名；应用标识 `com.example.static-server` 为占位。
+- 安装包未签名。
