@@ -63,8 +63,27 @@ jobs:
       - name: Build
         run: cargo build --release --target ${{ matrix.target }}
 
+      - name: Disable Spotlight indexing (avoids busy dmg volumes)
+        if: runner.os == 'macOS'
+        run: sudo mdutil -a -i off || true
+
       - name: Package
-        run: cargo packager --release --formats ${{ matrix.formats }} --target ${{ matrix.target }}
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            if cargo packager --release --formats ${{ matrix.formats }} --target ${{ matrix.target }}; then
+              exit 0
+            fi
+            echo "Packaging failed (attempt $attempt), cleaning up and retrying..."
+            if [ "$RUNNER_OS" = "macOS" ]; then
+              for dev in $(hdiutil info | grep -o '/dev/disk[0-9]*' | sort -u); do
+                hdiutil detach -force "$dev" || true
+              done
+              rm -f dist/rw.*.dmg
+            fi
+            sleep 5
+          done
+          exit 1
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
